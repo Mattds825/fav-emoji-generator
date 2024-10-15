@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      <div className="flex flex-col h-screen bg-gradient-to-t from-indigo-100 to-transparent">
+      <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-100 to-transparent">
         <Header />
         <Main />
         <Footer />

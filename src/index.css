@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.specialBtn {
+  background: white;
+  box-shadow: 0px 14px 55px rgba(104, 96, 255, 0.35);
+  transition-duration: 200ms;
+}
+
+.specialBtn:hover {
+  opacity: 0.8;
+}
