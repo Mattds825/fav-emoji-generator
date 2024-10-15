@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EmojiPicker, {Emoji} from "emoji-picker-react";
+import EmojiIcon from "./EmojiIcon";
 
 const Main = () => {
   const MAX_EMOJIS = 3;
@@ -16,7 +17,7 @@ const Main = () => {
   };
 
   return (
-    <main className="flex flex-col gap-3 flex-1 justify-center items-center">
+    <main className="flex flex-col gap-5 flex-1 justify-center items-center">
       <EmojiPicker
         onEmojiClick={(emojiObject, event) =>
           {
@@ -28,11 +29,15 @@ const Main = () => {
       />
       <p>Chosen Emojis: </p>
       <div>
-        {emojis.map((emoji, index) => (
-          <span className="text-5xl" key={index}>{emoji}</span>
-        ))}
+        <EmojiIcon emojis={emojis} />
       </div>
       {/* <Emoji unified="1f423" size="25" /> */}
+      <button        
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-indigo-400 specialBtn"
+      >
+        <p>Generate</p>
+        <i className="fa-solid fa-plus"></i>
+      </button>
     </main>
   );
 };
