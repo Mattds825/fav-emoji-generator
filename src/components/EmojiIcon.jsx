@@ -18,8 +18,7 @@ const EmojiIcon = (props) => {
   }, [color]);
 
   return (
-    <>
-      <div
+    <div
         style={{
           backgroundColor: `hsl(${color.h}, ${color.s}%, ${color.l}%)`,
         }}
@@ -31,10 +30,6 @@ const EmojiIcon = (props) => {
           </span>
         ))}
       </div>
-      <span>
-        Color: {color.h} {color.s} {color.l}
-      </span>
-    </>
   );
 };
 
