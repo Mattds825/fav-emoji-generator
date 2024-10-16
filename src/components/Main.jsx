@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 import EmojiIcon from "./EmojiIcon";
 import { HslColorPicker } from "react-colorful";
+import html2canvas from "html2canvas";
 
-const Main = () => {
+const Main = (props) => {
+  const { saveAs } = props;
+
   const MAX_EMOJIS = 3;
 
   const [emojis, setEmojis] = useState([]); // Array to store up to 3 emojis
@@ -23,9 +26,11 @@ const Main = () => {
     setColor(newColor);
   };
 
-  const handleEmojiPickerToggle = () => {
-    console.log("minimize");
-    setEmojiPickerIsOpen(false);
+  const handleGenerateClick = () => {
+    html2canvas(document.querySelector("#emojiIcon")).then((canvas) => {
+      var image = canvas.toDataURL("image/png");
+        saveAs(image, "emojiIcon.png");
+    });
   };
 
   return (
@@ -43,11 +48,11 @@ const Main = () => {
           />
         </div>
         <div className="min-h-40">
-        <HslColorPicker
-          color={color}
-          onChange={handleColorChange}
-          className="myColorPicker mx-auto"
-        />
+          <HslColorPicker
+            color={color}
+            onChange={handleColorChange}
+            className="myColorPicker mx-auto"
+          />
         </div>
       </div>
       <hr className="bg-indigo-200 h-1 w-7/12 my-3 rounded-full" />
@@ -56,7 +61,7 @@ const Main = () => {
         <EmojiIcon emojis={emojis} color={color} />
       </div>
       {/* <Emoji unified="1f423" size="25" /> */}
-      <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn">
+      <button onClick={handleGenerateClick} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn">
         <p>Generate</p>
         <i className="fa-solid fa-plus"></i>
       </button>

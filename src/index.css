@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* fix added line break caused by tailwind */
+@layer base {
+  img {
+    @apply inline-block;
+  }
+}
+
 *{
   margin: 0;
   padding: 0;

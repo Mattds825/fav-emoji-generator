@@ -18,18 +18,22 @@ const EmojiIcon = (props) => {
   }, [color]);
 
   return (
-    <div
+    <div id="emojiIcon">
+      <div
         style={{
           backgroundColor: `hsl(${color.h}, ${color.s}%, ${color.l}%)`,
         }}
         className="flex justify-center items-center h-36 w-36 border border-slate-600 border-solid rounded-lg"
       >
         {emojis.map((emoji, index) => (
-          <span className={getEmojiSize()} key={index}>
-            {emoji}
-          </span>
+          <div className="my-auto">
+            <span className={getEmojiSize()} key={index}>
+              {emoji}
+            </span>
+          </div>
         ))}
       </div>
+    </div>
   );
 };
 
