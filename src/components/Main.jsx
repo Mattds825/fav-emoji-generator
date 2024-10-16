@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 import EmojiIcon from "./EmojiIcon";
 import { HslColorPicker } from "react-colorful";
 import html2canvas from "html2canvas";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 const Main = (props) => {
-  const { saveAs } = props;
+  //   const { saveAs } = props;
 
   const MAX_EMOJIS = 3;
+  const IMG_SIZES = [128, 64, 48, 32, 16];
 
   const [emojis, setEmojis] = useState([]); // Array to store up to 3 emojis
   const [emojiPickerIsOpen, setEmojiPickerIsOpen] = useState(true);
   const [color, setColor] = useState({ h: 0, s: 1, l: 0.5 });
+
+  const [loading, setLoading] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [imagesDataMaps, setImagesDataMaps] = useState([]);
+
+  useEffect(() => {
+    if (imagesLoaded) {
+      console.log("zipping and downloading images");
+      zipAndDownload(imagesDataMaps);
+      setImagesLoaded(false);
+    }
+  }, [imagesLoaded]);
 
   const onEmojiClick = (event, emojiObject) => {
     console.log(emojiObject);
@@ -26,10 +41,55 @@ const Main = (props) => {
     setColor(newColor);
   };
 
-  const handleGenerateClick = () => {
-    html2canvas(document.querySelector("#emojiIcon")).then((canvas) => {
+  function zipAndDownload(imgMaps) {
+    var zip = new JSZip();
+
+    imgMaps.forEach((imgMap) => {
+      const { image, size } = imgMap;
+      zip.file(`favicon-${size}x${size}.png`, image.split(",")[1], {
+        base64: true,
+      });
+    });
+
+    zip.generateAsync({ type: "blob" }).then(function (content) {
+      saveAs(content, "favicons.zip");
+    });
+  }
+
+  const getImageData = async (scale, index) => {
+    await html2canvas(document.querySelector("#emojiIcon"), {
+      scale: scale,
+    }).then((canvas) => {
       var image = canvas.toDataURL("image/png");
-        saveAs(image, "emojiIcon.png");
+
+      setImagesDataMaps((prev) => [...prev, { image, size: IMG_SIZES[index] }]);
+
+      console.log(`image ${scale}`, image);
+
+      if (index === 4) {
+        setLoading(false);
+        setImagesLoaded(true);
+        console.log("finished loading images");
+      }
+    });
+  };
+
+  const handleGenerateClick = () => {
+    const sizes = [128, 64, 48, 32, 16];
+    const scales = [
+      sizes[0] / 128,
+      sizes[1] / 128,
+      sizes[2] / 128,
+      sizes[3] / 128,
+      sizes[4] / 128,
+    ];
+    const images = [];
+
+    setLoading(true);
+
+    scales.forEach((scale, index) => {
+      console.log("scale", scale);
+      getImageData(scale, index);
     });
   };
 
@@ -61,8 +121,11 @@ const Main = (props) => {
         <EmojiIcon emojis={emojis} color={color} />
       </div>
       {/* <Emoji unified="1f423" size="25" /> */}
-      <button onClick={handleGenerateClick} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn">
-        <p>Generate</p>
+      <button
+        onClick={handleGenerateClick}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn"
+      >
+        <p>Zip & Download</p>
         <i className="fa-solid fa-plus"></i>
       </button>
     </main>
