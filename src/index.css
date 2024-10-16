@@ -9,13 +9,16 @@
   }
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-h1,h2,h3,h4{
+h1,
+h2,
+h3,
+h4 {
   font-weight: 600;
 }
 
@@ -31,4 +34,37 @@ h1,h2,h3,h4{
 
 .react-colorful.myColorPicker {
   height: 100%;
+}
+
+/* ------ Emoji Loading Animation */
+
+.emoji-loading {
+  font-size: calc(100px + 4vw);
+  min-width: 1.4em;
+  margin: 0.3em 0.4em;
+  text-align: center;
+}
+
+.emoji-loading::after {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hourglass::after {
+  content: "⏳";
+  --emoji: "⌛️";
+  animation-name: twoFrames;
+  animation-duration: 1.2s;
+}
+
+.loadingDiv {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@keyframes twoFrames {
+  50% {
+    content: var(--emoji);
+  }
 }

@@ -17,3 +17,10 @@ this is a small applet that can be used to generate a quick file set of icons wi
 - (react-colorful)[https://github.com/omgovich/react-colorful]
 - (html2canvas)[https://www.npmjs.com/package/html2canvas/v/1.4.1]
 - (jszip)[https://stuk.github.io/jszip/]
+
+
+## TODO
+
+- add other emoji loading indicators with random one each time 
+- fix header for mobile
+- add favicon
