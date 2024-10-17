@@ -13,14 +13,15 @@ this is a small applet that can be used to generate a quick file set of icons wi
 
 - React js 
 - Tailwind css
-- (emoji-picker-react)[https://github.com/ealush/emoji-picker-react]
-- (react-colorful)[https://github.com/omgovich/react-colorful]
-- (html2canvas)[https://www.npmjs.com/package/html2canvas/v/1.4.1]
-- (jszip)[https://stuk.github.io/jszip/]
+- [emoji-picker-react](https://github.com/ealush/emoji-picker-react)
+- [react-colorful](https://github.com/omgovich/react-colorful)
+- [html2canvas](https://www.npmjs.com/package/html2canvas/v/1.4.1)
+- [jszip](https://stuk.github.io/jszip/)
+- [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 
 ## TODO
 
-- add other emoji loading indicators with random one each time 
 - fix header for mobile
 - add favicon
+- deploy

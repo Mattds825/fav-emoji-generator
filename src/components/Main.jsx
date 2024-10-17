@@ -7,6 +7,9 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import Loading from "./Loading";
 import DesignSection from "./DesignSection";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+  
 
 const Main = (props) => {
   //   const { saveAs } = props;
@@ -32,23 +35,32 @@ const Main = (props) => {
 
   useEffect(() => {
     if (loading) {
-        console.log("loading started");
-        setTimeout(() => {
-            handleGenerateClick();
-        }, 100);
-    }else{
-        console.log("loading stopped");
+      console.log("loading started");
+      setTimeout(() => {
+        handleGenerateClick();
+      }, 100);
+    } else {
+      console.log("loading stopped");
     }
   }, [loading]);
 
-
   const onEmojiClick = (event, emojiObject) => {
-    console.log(emojiObject);
-    console.log("current emojis: ", emojis);
-    if (emojis.length < MAX_EMOJIS) {
-      console.log("setting emoji");
-      setEmojis([...emojis, emojiObject.emoji]);
+    if (emojis.length >= MAX_EMOJIS) {
+      toast.warn('Max emojis reached 😳', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return;
     }
+
+    console.log("setting emoji");
+    setEmojis([...emojis, emojiObject.emoji]);
   };
 
   const handleColorChange = (newColor) => {
@@ -113,13 +125,14 @@ const Main = (props) => {
         emojis={emojis}
         onEmojiClick={onEmojiClick}
         handleColorChange={handleColorChange}
-        handleGenerateClick={()=>{
-            console.log("loading started");
-            setLoading(true);
-            // handleGenerateClick();
+        handleGenerateClick={() => {
+          console.log("loading started");
+          setLoading(true);
+          // handleGenerateClick();
         }}
       />
       {loading && <Loading />}
+      <ToastContainer />
     </main>
   );
 };
