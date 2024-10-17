@@ -22,6 +22,8 @@ this is a small applet that can be used to generate a quick file set of icons wi
 
 ## TODO
 
-- fix header for mobile
+- remove last emoji btn
+- add apple adn android sizes
+- add manifest file to zip
 - add favicon
 - deploy

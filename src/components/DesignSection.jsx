@@ -20,7 +20,7 @@ const DesignSection = (props) => {
       <div className="flex flex-col gap-5 md:flex-row min-h-80 md:min-h-40">
         <div className="my-auto">
           <EmojiPicker
-            searchDisabled={true}
+            searchDisabled={false}
             allowExpandReactions={true}
             reactionsDefaultOpen={emojiPickerIsOpen}
             onEmojiClick={(emojiObject, event) => {

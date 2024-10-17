@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="flex justify-between max-w-3xl w-full mx-auto my-3">
+    <div className="flex justify-between max-w-3xl w-full mx-auto my-3 px-5">
       <h1 className="text-4xl">
         ✌️✌️Fav
         <span className="decoration-indigo-400 decoration-4 line-through text-slate-600">
