@@ -32,6 +32,15 @@ h4 {
   opacity: 0.8;
 }
 
+.specialBtnSec {
+  box-shadow: 0px 14px 55px rgba(104, 96, 255, 0.35);
+  transition-duration: 200ms;
+}
+
+.specialBtnSec:hover {
+  opacity: 0.8;
+}
+
 .react-colorful.myColorPicker {
   height: 100%;
 }

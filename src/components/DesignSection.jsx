@@ -12,6 +12,7 @@ const DesignSection = (props) => {
     onEmojiClick,
     handleColorChange,
     handleGenerateClick,
+    removeEmoji,
   } = props;
 
   return (
@@ -36,6 +37,14 @@ const DesignSection = (props) => {
           />
         </div>
       </div>
+      {emojis.length > 0 && (
+        <button
+          onClick={removeEmoji}
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-indigo-400 text-white specialBtnSec"
+        >
+          <p>undo emoji</p>
+        </button>
+      )}
       <hr className="bg-indigo-200 h-1 w-7/12 my-3 rounded-full" />
       <h3 className="text-3xl text-indigo-400 bg">🔮 Output 🔮</h3>
       <div>
@@ -47,7 +56,6 @@ const DesignSection = (props) => {
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn"
       >
         <p>Zip & Download</p>
-        <i className="fa-solid fa-plus"></i>
       </button>
     </section>
   );

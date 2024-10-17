@@ -8,6 +8,8 @@ this is a small applet that can be used to generate a quick file set of icons wi
 - pick up to three emojis
 - pick a color from and HSL color picker
 - click 'generate' button to download a zip file of all the needed icon sizes
+- provide manifest file
+- provide html code and allow copy to clipboard
 
 ## Resources and Technologies 
 
@@ -23,7 +25,7 @@ this is a small applet that can be used to generate a quick file set of icons wi
 ## TODO
 
 - remove last emoji btn
-- add apple adn android sizes
+- add code section to copy adn paste needed html code
 - add manifest file to zip
 - add favicon
 - deploy

@@ -34,6 +34,7 @@ const Main = (props) => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [imagesDataMaps, setImagesDataMaps] = useState([]);
 
+
   useEffect(() => {
     if (imagesLoaded) {
       console.log("zipping and downloading images");
@@ -53,8 +54,10 @@ const Main = (props) => {
     }
   }, [loading]);
 
+
   const onEmojiClick = (event, emojiObject) => {
     if (emojis.length >= MAX_EMOJIS) {
+        console.log(emojis);
       toast.warn("Max emojis reached 😳", {
         position: "bottom-center",
         autoClose: 3000,
@@ -68,8 +71,24 @@ const Main = (props) => {
       return;
     }
 
-    console.log("setting emoji");
-    setEmojis([...emojis, emojiObject.emoji]);
+    console.log("setting emoji", [...emojis]);
+    setEmojis((prev) => {
+        console.log("prev",prev);
+        return [...prev, emojiObject.emoji];
+    });
+  };
+
+  const removeEmoji = () => {
+     if(emojis.length === 0) return;
+    const newEmojis = emojis.filter((_, index) => index !== emojis.length - 1);
+
+    console.log("newEmojis",newEmojis);
+
+    setEmojis(newEmojis);
+
+    console.log("emojis", emojis);
+
+    console.log(emojis.length);
   };
 
   const handleColorChange = (newColor) => {
@@ -132,6 +151,7 @@ const Main = (props) => {
         emojis={emojis}
         onEmojiClick={onEmojiClick}
         handleColorChange={handleColorChange}
+        removeEmoji={removeEmoji}
         handleGenerateClick={() => {
           console.log("loading started");
           setLoading(true);
