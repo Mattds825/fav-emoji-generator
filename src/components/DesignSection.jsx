@@ -3,6 +3,7 @@ import EmojiPicker, { Emoji } from "emoji-picker-react";
 import EmojiIcon from "./EmojiIcon";
 import { HslColorPicker } from "react-colorful";
 import Loading from "./Loading";
+import CodeBlock from "./CodeBlock";
 
 const DesignSection = (props) => {
   const {
@@ -13,9 +14,23 @@ const DesignSection = (props) => {
     handleColorChange,
     handleGenerateClick,
     removeEmoji,
+    showCode,
+    code,
+    language,
+    setShowCode,
   } = props;
 
-  return (
+  return showCode ? (
+    <section className="flex flex-col gap-5 flex-1 justify-center items-center">
+      <CodeBlock code={code} language={language} />
+      <button
+        onClick={() => setShowCode(false)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn"
+      >
+        <p>Reset</p>
+      </button>
+    </section>
+  ) : (
     <section className="flex flex-col gap-5 flex-1 justify-center items-center">
       <h3 className="text-3xl text-indigo-400 bg">🎨 Design 🎨</h3>
       <div className="flex flex-col gap-5 md:flex-row min-h-80 md:min-h-40">

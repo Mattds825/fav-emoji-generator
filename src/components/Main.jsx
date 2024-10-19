@@ -10,6 +10,7 @@ import DesignSection from "./DesignSection";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Main = (props) => {
   //   const { saveAs } = props;
 
@@ -34,12 +35,19 @@ const Main = (props) => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [imagesDataMaps, setImagesDataMaps] = useState([]);
 
+  const [showCode, setShowCode] = useState(true);
+
+  const htmlCode = `<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">`;
 
   useEffect(() => {
     if (imagesLoaded) {
       console.log("zipping and downloading images");
       zipAndDownload(imagesDataMaps);
       setImagesLoaded(false);
+      setShowCode(true);
     }
   }, [imagesLoaded]);
 
@@ -54,10 +62,9 @@ const Main = (props) => {
     }
   }, [loading]);
 
-
   const onEmojiClick = (event, emojiObject) => {
     if (emojis.length >= MAX_EMOJIS) {
-        console.log(emojis);
+      console.log(emojis);
       toast.warn("Max emojis reached 😳", {
         position: "bottom-center",
         autoClose: 3000,
@@ -73,16 +80,16 @@ const Main = (props) => {
 
     console.log("setting emoji", [...emojis]);
     setEmojis((prev) => {
-        console.log("prev",prev);
-        return [...prev, emojiObject.emoji];
+      console.log("prev", prev);
+      return [...prev, emojiObject.emoji];
     });
   };
 
   const removeEmoji = () => {
-     if(emojis.length === 0) return;
+    if (emojis.length === 0) return;
     const newEmojis = emojis.filter((_, index) => index !== emojis.length - 1);
 
-    console.log("newEmojis",newEmojis);
+    console.log("newEmojis", newEmojis);
 
     setEmojis(newEmojis);
 
@@ -157,8 +164,13 @@ const Main = (props) => {
           setLoading(true);
           // handleGenerateClick();
         }}
+        showCode={showCode}
+        code={htmlCode} 
+        language={"html"}
+        setShowCode={setShowCode}
       />
       {loading && <Loading />}
+      
       <ToastContainer />
     </main>
   );
