@@ -17,7 +17,9 @@ const DesignSection = (props) => {
     showCode,
     code,
     language,
-    reset
+    reset,
+    icoOnly,
+    setIcoOnly,
   } = props;
 
   return showCode ? (
@@ -66,11 +68,27 @@ const DesignSection = (props) => {
         <EmojiIcon emojis={emojis} color={color} />
       </div>
       {/* <Emoji unified="1f423" size="25" /> */}
+      <div>
+        <input
+          id="bordered-checkbox-1"
+          type="checkbox"
+          checked={icoOnly}
+          onChange={()=> setIcoOnly(!icoOnly)}
+          name="bordered-checkbox"
+          className="w-4 h-4 accent-indigo-300"
+        />
+        <label
+          htmlFor="bordered-checkbox-1"
+          className="w-full py-4 ms-2 text-sm font-medium text-gray-600 "
+        >
+          I want only the favicon.ico file
+        </label>
+      </div>
       <button
         onClick={handleGenerateClick}
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn"
       >
-        <p>Zip & Download</p>
+        <p>{icoOnly ? "Download" : "Zip & Download"}</p>
       </button>
     </section>
   );

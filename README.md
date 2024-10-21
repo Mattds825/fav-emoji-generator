@@ -10,6 +10,7 @@ this is a intuitive applet that can be used to generate a quick file set of icon
 - click 'generate' button to download a zip file of all the needed icon sizes
 - provide manifest file
 - provide html code and allow copy to clipboard
+- user can choose if they want the full zip with the manifest or only the favicon.ico file
 
 ## Resources and Technologies 
 

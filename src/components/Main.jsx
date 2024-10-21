@@ -29,12 +29,16 @@ const Main = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [imagesDataMaps, setImagesDataMaps] = useState([]);
 
+  const [icoOnly, setIcoOnly] = useState(false);
+
   const [showCode, setShowCode] = useState(false);
 
   const htmlCode = `<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">`;
+
+const htmlCodeIcoOnly = `<link rel="icon" type="x-icon" href="/favicon.ico" />`;
 
   const webManifestCode = `{"name":"","short_name":"","icons":
   [{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],
@@ -66,6 +70,7 @@ const Main = () => {
     setImagesDataMaps([]);
     setImagesLoaded(false);
     setShowCode(false);
+    setIcoOnly(false);
   };
 
   const onEmojiClick = (event, emojiObject) => {
@@ -109,20 +114,28 @@ const Main = () => {
   };
 
   function zipAndDownload(imgMaps) {
-    var zip = new JSZip();
 
-    zip.file("site.webmanifest", webManifestCode);
+    if(icoOnly){
+        console.log("saving favicon only");
+        const favImg = imgMaps.filter((imgMap) => imgMap.size === 48)[0];
 
-    imgMaps.forEach((imgMap) => {
-      const { image, size } = imgMap;
-      zip.file(sizeToNameMap[size], image.split(",")[1], {
-        base64: true,
-      });
-    });
+        saveAs(favImg.image, "favicon.ico");
+    }else {
+        var zip = new JSZip();
 
-    zip.generateAsync({ type: "blob" }).then(function (content) {
-      saveAs(content, "favicons.zip");
-    });
+        zip.file("site.webmanifest", webManifestCode);
+    
+        imgMaps.forEach((imgMap) => {
+          const { image, size } = imgMap;
+          zip.file(sizeToNameMap[size], image.split(",")[1], {
+            base64: true,
+          });
+        });
+    
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+          saveAs(content, "favicons.zip");
+        });
+    }
   }
 
   const getImageData = async (size, scale, index) => {
@@ -168,9 +181,11 @@ const Main = () => {
           // handleGenerateClick();
         }}
         showCode={showCode}
-        code={htmlCode}
+        code={icoOnly ? htmlCodeIcoOnly : htmlCode}
         language={"html"}
         reset={reset}
+        icoOnly={icoOnly}
+        setIcoOnly={setIcoOnly}
       />
       {loading && <Loading />}
 
