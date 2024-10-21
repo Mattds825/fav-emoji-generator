@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import EmojiPicker, { Emoji } from "emoji-picker-react";
-import EmojiIcon from "./EmojiIcon";
-import { HslColorPicker } from "react-colorful";
 import html2canvas from "html2canvas";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -10,10 +7,7 @@ import DesignSection from "./DesignSection";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-const Main = (props) => {
-  //   const { saveAs } = props;
-
+const Main = () => {
   const MAX_EMOJIS = 3;
   const IMG_SIZES = [192, 512, 180, 32, 16, 48];
   const OG_ICON_SIZE = 128;
@@ -35,12 +29,16 @@ const Main = (props) => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [imagesDataMaps, setImagesDataMaps] = useState([]);
 
-  const [showCode, setShowCode] = useState(true);
+  const [showCode, setShowCode] = useState(false);
 
   const htmlCode = `<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">`;
+
+  const webManifestCode = `{"name":"","short_name":"","icons":
+  [{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],
+  "theme_color":"#ffffff","background_color":"#ffffff","display":"standalone"}`;
 
   useEffect(() => {
     if (imagesLoaded) {
@@ -61,6 +59,14 @@ const Main = (props) => {
       console.log("loading stopped");
     }
   }, [loading]);
+
+  const reset = () => {
+    setEmojis([]);
+    setColor({ h: 0, s: 1, l: 0.5 });
+    setImagesDataMaps([]);
+    setImagesLoaded(false);
+    setShowCode(false);
+  };
 
   const onEmojiClick = (event, emojiObject) => {
     if (emojis.length >= MAX_EMOJIS) {
@@ -105,6 +111,8 @@ const Main = (props) => {
   function zipAndDownload(imgMaps) {
     var zip = new JSZip();
 
+    zip.file("site.webmanifest", webManifestCode);
+
     imgMaps.forEach((imgMap) => {
       const { image, size } = imgMap;
       zip.file(sizeToNameMap[size], image.split(",")[1], {
@@ -143,11 +151,6 @@ const Main = (props) => {
     IMG_SIZES.forEach((size, index) => {
       getImageData(size, size / OG_ICON_SIZE, index);
     });
-
-    // scales.forEach((scale, index) => {
-    //   console.log("scale", scale);
-    //   getImageData(scale, index);
-    // });
   };
 
   return (
@@ -165,12 +168,12 @@ const Main = (props) => {
           // handleGenerateClick();
         }}
         showCode={showCode}
-        code={htmlCode} 
+        code={htmlCode}
         language={"html"}
-        setShowCode={setShowCode}
+        reset={reset}
       />
       {loading && <Loading />}
-      
+
       <ToastContainer />
     </main>
   );

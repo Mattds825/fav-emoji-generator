@@ -17,14 +17,14 @@ const DesignSection = (props) => {
     showCode,
     code,
     language,
-    setShowCode,
+    reset
   } = props;
 
   return showCode ? (
     <section className="flex flex-col gap-5 flex-1 justify-center items-center">
       <CodeBlock code={code} language={language} />
       <button
-        onClick={() => setShowCode(false)}
+        onClick={() => reset()}
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-xl text-indigo-400 specialBtn"
       >
         <p>Reset</p>

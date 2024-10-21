@@ -1,6 +1,6 @@
 # Fav Emoji Generator
 
-this is a small applet that can be used to generate a quick file set of icons with emojis
+this is a intuitive applet that can be used to generate a quick file set of icons with emojis
 
 ## Features
 
@@ -26,6 +26,5 @@ this is a small applet that can be used to generate a quick file set of icons wi
 
 ## TODO
 
-- add manifest file to zip
-- add favicon
+- add tick box if user only wants the favicon
 - deploy
