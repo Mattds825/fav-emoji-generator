@@ -24,8 +24,3 @@ this is a intuitive applet that can be used to generate a quick file set of icon
 - [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
 - [react-copy-to-clipboard](https://www.npmjs.com/package/react-copy-to-clipboard)
 
-
-## TODO
-
-- add tick box if user only wants the favicon
-- deploy
