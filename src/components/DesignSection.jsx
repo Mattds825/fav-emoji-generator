@@ -40,7 +40,7 @@ const DesignSection = (props) => {
           <EmojiPicker
             searchDisabled={false}
             allowExpandReactions={true}
-            reactionsDefaultOpen={emojiPickerIsOpen}
+            reactionsDefaultOpen={false}  // if true sometimes won't load isk why
             onEmojiClick={(emojiObject, event) => {
               onEmojiClick(event, emojiObject);
             }}
